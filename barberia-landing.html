@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BLADE — Barbería</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Barlow+Condensed:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #080808;
+  --bg2: #0e0e0e;
+  --card: #111;
+  --border: #1e1e1e;
+  --gold: #c9a84c;
+  --gold2: #e8c96a;
+  --text: #f0ece4;
+  --muted: #5a5650;
+  --muted2: #8a8680;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Barlow', sans-serif;
+  overflow-x: hidden;
+}
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 20px 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(to bottom, rgba(8,8,8,0.98), transparent);
+}
+
+.nav-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  letter-spacing: 6px;
+  color: var(--gold);
+}
+
+.nav-links {
+  display: flex;
+  gap: 36px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted2);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover { color: var(--gold); }
+
+.nav-cta {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--bg);
+  background: var(--gold);
+  padding: 10px 24px;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+  text-decoration: none;
+}
+
+.nav-cta:hover { background: var(--gold2); }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-end;
+  padding: 0 48px 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to right, rgba(8,8,8,0.97) 45%, rgba(8,8,8,0.3) 100%),
+    url('https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=1400&q=80') center/cover no-repeat;
+}
+
+.hero-grain {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity: 0.4;
+  pointer-events: none;
+}
+
+.hero-line {
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+  left: 48px;
+  opacity: 0.4;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 640px;
+}
+
+.hero-tag {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hero-tag::before {
+  content: '';
+  width: 30px;
+  height: 1px;
+  background: var(--gold);
+}
+
+.hero-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(72px, 12vw, 140px);
+  line-height: 0.9;
+  letter-spacing: 2px;
+  margin-bottom: 28px;
+}
+
+.hero-title span {
+  display: block;
+  color: var(--gold);
+  font-size: clamp(28px, 5vw, 52px);
+  letter-spacing: 16px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-weight: 300;
+}
+
+.hero-desc {
+  font-size: 16px;
+  color: var(--muted2);
+  line-height: 1.7;
+  max-width: 420px;
+  margin-bottom: 40px;
+  font-weight: 300;
+}
+
+.hero-btns {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--bg);
+  background: var(--gold);
+  padding: 16px 36px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-primary:hover {
+  background: var(--gold2);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted2);
+  background: transparent;
+  padding: 16px 0;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: color 0.2s;
+  text-decoration: none;
+}
+
+.btn-secondary:hover { color: var(--text); }
+
+.btn-secondary::after {
+  content: '↓';
+  font-size: 18px;
+}
+
+.hero-stats {
+  position: absolute;
+  right: 48px;
+  bottom: 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  z-index: 2;
+}
+
+.hero-stat {
+  text-align: right;
+}
+
+.hero-stat-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 36px;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.hero-stat-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* SERVICIOS */
+.section {
+  padding: 100px 48px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.section-label::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--gold);
+}
+
+.section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(42px, 6vw, 72px);
+  line-height: 1;
+  letter-spacing: 1px;
+  margin-bottom: 56px;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+
+.service-item {
+  background: var(--bg);
+  padding: 40px 32px;
+  transition: background 0.3s;
+  cursor: default;
+}
+
+.service-item:hover {
+  background: var(--card);
+}
+
+.service-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 13px;
+  color: var(--gold);
+  letter-spacing: 3px;
+  margin-bottom: 20px;
+  opacity: 0.6;
+}
+
+.service-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.service-desc {
+  font-size: 14px;
+  color: var(--muted2);
+  line-height: 1.6;
+  margin-bottom: 20px;
+  font-weight: 300;
+}
+
+.service-price {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 32px;
+  color: var(--gold);
+  letter-spacing: 1px;
+}
+
+.service-price span {
+  font-family: 'Barlow', sans-serif;
+  font-size: 14px;
+  color: var(--muted);
+  font-weight: 300;
+}
+
+/* SOBRE NOSOTROS */
+.about-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  padding: 100px 48px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.about-img-wrap {
+  position: relative;
+}
+
+.about-img {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  filter: grayscale(30%) contrast(1.1);
+}
+
+.about-img-border {
+  position: absolute;
+  top: 20px; left: 20px; right: -20px; bottom: -20px;
+  border: 1px solid var(--gold);
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.about-years {
+  position: absolute;
+  bottom: -24px;
+  right: -24px;
+  background: var(--gold);
+  color: var(--bg);
+  padding: 24px;
+  text-align: center;
+}
+
+.about-years-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 48px;
+  line-height: 1;
+  display: block;
+}
+
+.about-years-label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.about-text p {
+  font-size: 15px;
+  color: var(--muted2);
+  line-height: 1.8;
+  margin-bottom: 20px;
+  font-weight: 300;
+}
+
+.about-features {
+  margin-top: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.about-feature {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 15px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--muted2);
+}
+
+.about-feature::before {
+  content: '';
+  width: 20px;
+  height: 1px;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+
+/* GALERÍA */
+.gallery-section {
+  padding: 0 0 100px;
+  overflow: hidden;
+}
+
+.gallery-header {
+  padding: 0 48px;
+  max-width: 1200px;
+  margin: 0 auto 48px;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: 280px 280px;
+  gap: 4px;
+  padding: 0 48px;
+}
+
+.gallery-item {
+  overflow: hidden;
+  position: relative;
+}
+
+.gallery-item:first-child {
+  grid-row: 1 / 3;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(20%) contrast(1.05);
+  transition: transform 0.6s ease, filter 0.4s;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.04);
+  filter: grayscale(0%) contrast(1.1);
+}
+
+/* TESTIMONIOS */
+.testimonials {
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 100px 48px;
+}
+
+.testimonials-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-top: 56px;
+}
+
+.testimonial-card {
+  border: 1px solid var(--border);
+  padding: 32px;
+  position: relative;
+}
+
+.testimonial-quote {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 64px;
+  color: var(--gold);
+  opacity: 0.2;
+  position: absolute;
+  top: 16px;
+  right: 24px;
+  line-height: 1;
+}
+
+.testimonial-text {
+  font-size: 15px;
+  color: var(--muted2);
+  line-height: 1.7;
+  margin-bottom: 24px;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.testimonial-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--border);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.testimonial-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(40%);
+}
+
+.testimonial-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.stars {
+  color: var(--gold);
+  font-size: 12px;
+  letter-spacing: 2px;
+  margin-top: 2px;
+}
+
+/* RESERVA */
+.booking {
+  padding: 100px 48px;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.booking-info h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(42px, 6vw, 72px);
+  line-height: 1;
+  margin-bottom: 24px;
+}
+
+.booking-info p {
+  font-size: 15px;
+  color: var(--muted2);
+  line-height: 1.7;
+  margin-bottom: 40px;
+  font-weight: 300;
+}
+
+.contact-items {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 15px;
+  color: var(--muted2);
+}
+
+.contact-icon {
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.booking-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 14px 18px;
+  font-family: 'Barlow', sans-serif;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  border-color: var(--gold);
+}
+
+.form-group textarea {
+  resize: none;
+  height: 100px;
+}
+
+.form-group select option {
+  background: var(--card);
+}
+
+.form-submit {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 13px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--bg);
+  background: var(--gold);
+  padding: 18px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.form-submit:hover {
+  background: var(--gold2);
+}
+
+/* FOOTER */
+footer {
+  background: #050505;
+  border-top: 1px solid var(--border);
+  padding: 48px;
+}
+
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.footer-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 24px;
+  letter-spacing: 6px;
+  color: var(--gold);
+}
+
+.footer-copy {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.footer-socials {
+  display: flex;
+  gap: 16px;
+}
+
+.social-link {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted2);
+  text-decoration: none;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.social-link:hover {
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+/* TICKER */
+.ticker {
+  background: var(--gold);
+  padding: 14px 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.ticker-inner {
+  display: inline-block;
+  animation: ticker 20s linear infinite;
+}
+
+.ticker-text {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 16px;
+  letter-spacing: 4px;
+  color: var(--bg);
+  margin-right: 60px;
+}
+
+.ticker-dot {
+  margin-right: 60px;
+  color: rgba(8,8,8,0.4);
+}
+
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  nav { padding: 16px 24px; }
+  .nav-links { display: none; }
+  .hero { padding: 0 24px 60px; }
+  .hero-stats { display: none; }
+  .hero-line { left: 24px; }
+  .section { padding: 60px 24px; }
+  .services-grid { grid-template-columns: 1fr; }
+  .about-wrap { grid-template-columns: 1fr; padding: 60px 24px; gap: 40px; }
+  .gallery-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; padding: 0 24px; }
+  .gallery-item:first-child { grid-row: auto; grid-column: 1 / 3; }
+  .testimonials { padding: 60px 24px; }
+  .testimonials-grid { grid-template-columns: 1fr; }
+  .booking { grid-template-columns: 1fr; padding: 60px 24px; gap: 48px; }
+  .form-row { grid-template-columns: 1fr; }
+  footer { padding: 32px 24px; }
+  .footer-inner { flex-direction: column; text-align: center; }
+  .gallery-header { padding: 0 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">BLADE</div>
+  <ul class="nav-links">
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#galeria">Galería</a></li>
+    <li><a href="#reserva">Reservar</a></li>
+  </ul>
+  <a href="#reserva" class="nav-cta">Reservar cita</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-line"></div>
+
+  <div class="hero-content">
+    <div class="hero-tag">Barbería premium · Madrid</div>
+    <h1 class="hero-title">
+      BLADE
+      <span>Barber Shop</span>
+    </h1>
+    <p class="hero-desc">Más que un corte. Una experiencia. Cada detalle pensado para que salgas sintiéndote diferente.</p>
+    <div class="hero-btns">
+      <a href="#reserva" class="btn-primary">Reservar ahora</a>
+      <a href="#servicios" class="btn-secondary">Ver servicios</a>
+    </div>
+  </div>
+
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-num">12+</div>
+      <div class="hero-stat-label">Años de experiencia</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">4.9★</div>
+      <div class="hero-stat-label">Valoración media</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">2.400+</div>
+      <div class="hero-stat-label">Clientes satisfechos</div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-inner">
+    <span class="ticker-text">CORTE CLÁSICO</span><span class="ticker-dot">✦</span>
+    <span class="ticker-text">AFEITADO TRADICIONAL</span><span class="ticker-dot">✦</span>
+    <span class="ticker-text">PERFILADO DE BARBA</span><span class="ticker-dot">✦</span>
+    <span class="ticker-text">DEGRADADO SKIN FADE</span><span class="ticker-dot">✦</span>
+    <span class="ticker-text">TRATAMIENTOS CAPILARES</span><span class="ticker-dot">✦</span>
+    <span class="ticker-text">CORTE CLÁSICO</span><span class="ticker-dot">✦</span>
+    <span class="ticker-text">AFEITADO TRADICIONAL</span><span class="ticker-dot">✦</span>
+    <span class="ticker-text">PERFILADO DE BARBA</span><span class="ticker-dot">✦</span>
+    <span class="ticker-text">DEGRADADO SKIN FADE</span><span class="ticker-dot">✦</span>
+    <span class="ticker-text">TRATAMIENTOS CAPILARES</span><span class="ticker-dot">✦</span>
+  </div>
+</div>
+
+<!-- SERVICIOS -->
+<section id="servicios">
+  <div class="section">
+    <div class="section-label">Lo que hacemos</div>
+    <h2 class="section-title">Nuestros servicios</h2>
+    <div class="services-grid">
+      <div class="service-item">
+        <div class="service-num">01</div>
+        <div class="service-name">Corte clásico</div>
+        <div class="service-desc">Tijera y máquina. El corte que nunca pasa de moda, ejecutado con precisión milimétrica.</div>
+        <div class="service-price">15€ <span>/ 30 min</span></div>
+      </div>
+      <div class="service-item">
+        <div class="service-num">02</div>
+        <div class="service-name">Skin Fade</div>
+        <div class="service-desc">Degradado limpio desde cero. El acabado más solicitado del momento.</div>
+        <div class="service-price">18€ <span>/ 35 min</span></div>
+      </div>
+      <div class="service-item">
+        <div class="service-num">03</div>
+        <div class="service-name">Barba completa</div>
+        <div class="service-desc">Perfilado, arreglo y definición de barba. Con toalla caliente incluida.</div>
+        <div class="service-price">12€ <span>/ 20 min</span></div>
+      </div>
+      <div class="service-item">
+        <div class="service-num">04</div>
+        <div class="service-name">Corte + Barba</div>
+        <div class="service-desc">El pack completo. Sal renovado de arriba abajo. El favorito de nuestros clientes.</div>
+        <div class="service-price">25€ <span>/ 50 min</span></div>
+      </div>
+      <div class="service-item">
+        <div class="service-num">05</div>
+        <div class="service-name">Afeitado navaja</div>
+        <div class="service-desc">Afeitado tradicional con navaja recta. Toalla caliente, espuma artesanal y loción aftershave.</div>
+        <div class="service-price">20€ <span>/ 40 min</span></div>
+      </div>
+      <div class="service-item">
+        <div class="service-num">06</div>
+        <div class="service-name">Tratamiento capilar</div>
+        <div class="service-desc">Hidratación profunda, anti-caída o anticaspa. Consultamos tu caso antes de empezar.</div>
+        <div class="service-price">30€ <span>/ 60 min</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE NOSOTROS -->
+<section id="nosotros">
+  <div class="about-wrap">
+    <div class="about-img-wrap">
+      <img class="about-img" src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=800&q=80" alt="Barbero trabajando">
+      <div class="about-img-border"></div>
+      <div class="about-years">
+        <span class="about-years-num">12</span>
+        <span class="about-years-label">Años de oficio</span>
+      </div>
+    </div>
+    <div class="about-text">
+      <div class="section-label">Quiénes somos</div>
+      <h2 class="section-title">El arte del buen corte</h2>
+      <p>En BLADE creemos que un buen corte no es un lujo, es una necesidad. Llevamos más de una década perfeccionando cada técnica, cada detalle, cada acabado.</p>
+      <p>No somos una peluquería más. Somos artesanos del cabello que se toman en serio su trabajo y el tiempo de sus clientes.</p>
+      <div class="about-features">
+        <div class="about-feature">Barberos certificados con experiencia internacional</div>
+        <div class="about-feature">Productos de primera calidad — sin excusas</div>
+        <div class="about-feature">Reserva online en menos de 2 minutos</div>
+        <div class="about-feature">Sin esperas — respetamos tu tiempo</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALERÍA -->
+<section id="galeria">
+  <div class="gallery-section">
+    <div class="gallery-header">
+      <div class="section-label">Nuestro trabajo</div>
+      <h2 class="section-title">Galería</h2>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=800&q=80" alt="Corte 1">
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?w=600&q=80" alt="Corte 2">
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=600&q=80" alt="Corte 3">
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=600&q=80" alt="Corte 4">
+      </div>
+      <div class="gallery-item">
+        <img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=600&q=80" alt="Corte 5">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIOS -->
+<section>
+  <div class="testimonials">
+    <div class="testimonials-inner">
+      <div class="section-label">Lo que dicen</div>
+      <h2 class="section-title">Clientes reales</h2>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="testimonial-quote">"</div>
+          <p class="testimonial-text">Llevo 3 años viniendo a BLADE y no cambiaría de sitio por nada. El skin fade que me hacen es perfecto, siempre igual de limpio.</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">
+              <img src="https://i.pravatar.cc/80?img=11" alt="Cliente">
+            </div>
+            <div>
+              <div class="testimonial-name">Carlos M.</div>
+              <div class="stars">★★★★★</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-quote">"</div>
+          <p class="testimonial-text">El afeitado con navaja es una experiencia increíble. La toalla caliente, el olor del aftershave... sales como nuevo. Vale cada euro.</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">
+              <img src="https://i.pravatar.cc/80?img=52" alt="Cliente">
+            </div>
+            <div>
+              <div class="testimonial-name">Alejandro R.</div>
+              <div class="stars">★★★★★</div>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="testimonial-quote">"</div>
+          <p class="testimonial-text">Lo mejor es que nunca esperas. Reservas online, llegas a tu hora y listo. El resultado siempre es brutal. Los recomiendo 100%.</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">
+              <img src="https://i.pravatar.cc/80?img=33" alt="Cliente">
+            </div>
+            <div>
+              <div class="testimonial-name">David F.</div>
+              <div class="stars">★★★★★</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESERVA -->
+<section id="reserva">
+  <div class="booking">
+    <div class="booking-info">
+      <div class="section-label">Reserva tu cita</div>
+      <h2>Nos vemos<br>en la silla</h2>
+      <p>Rellena el formulario y te confirmamos tu cita en menos de una hora. Sin llamadas, sin complicaciones.</p>
+      <div class="contact-items">
+        <div class="contact-item">
+          <div class="contact-icon">📍</div>
+          <span>Calle Mayor 14, Navalcarnero, Madrid</span>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">📞</div>
+          <span>+34 600 000 000</span>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">🕐</div>
+          <span>Lun–Sáb: 10:00 – 20:00 · Dom: Cerrado</span>
+        </div>
+      </div>
+    </div>
+    <div class="booking-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nombre</label>
+          <input type="text" placeholder="Tu nombre">
+        </div>
+        <div class="form-group">
+          <label>Teléfono</label>
+          <input type="tel" placeholder="+34 600 000 000">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Servicio</label>
+        <select>
+          <option value="" disabled selected>Selecciona un servicio</option>
+          <option>Corte clásico — 15€</option>
+          <option>Skin Fade — 18€</option>
+          <option>Barba completa — 12€</option>
+          <option>Corte + Barba — 25€</option>
+          <option>Afeitado navaja — 20€</option>
+          <option>Tratamiento capilar — 30€</option>
+        </select>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Fecha</label>
+          <input type="date">
+        </div>
+        <div class="form-group">
+          <label>Hora preferida</label>
+          <select>
+            <option>10:00</option>
+            <option>11:00</option>
+            <option>12:00</option>
+            <option>13:00</option>
+            <option>16:00</option>
+            <option>17:00</option>
+            <option>18:00</option>
+            <option>19:00</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Notas (opcional)</label>
+        <textarea placeholder="Cuéntanos algo sobre lo que buscas..."></textarea>
+      </div>
+      <button class="form-submit" onclick="alert('¡Cita solicitada! Te confirmamos en breve.')">
+        Solicitar cita →
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">BLADE</div>
+    <div class="footer-copy">© 2025 Blade Barber Shop · Navalcarnero</div>
+    <div class="footer-socials">
+      <a href="#" class="social-link">ig</a>
+      <a href="#" class="social-link">fb</a>
+      <a href="#" class="social-link">wa</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
